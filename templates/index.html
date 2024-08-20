@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Epilepsy Detection</title>
+    <link rel="stylesheet" href="static/styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container" >
+
+        <div class="header">
+            <h1>EPILEPSY DETECTION</h1>
+        </div>
+        <div class="form-container" style="margin-left: 55%;">
+            <form method="post" action="/" enctype="multipart/form-data" onsubmit="return validateForm()">
+                <div class="form-group">
+                    <label for="file">Upload EDF file:</label>
+                    <input type="file" id="file" name="file" class="form-control-file" accept=".edf" required>
+                    <div class="invalid-feedback">
+                        Please select an EDF file.
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Classify" class="btn btn-primary">
+                </div>
+            </form>
+        </div>
+        <div class="form-container" style="padding-top: 10px;margin-left: 55%;">
+            {% if category and request.method == 'POST' %}
+                <div class="category" style="font-size:xx-large;">RESULT: {{ category.upper() }}</div>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        function validateForm() {
+            var fileInput = document.getElementById("file");
+            if (fileInput.files.length === 0) {
+                fileInput.classList.add("is-invalid");
+                return false;
+            }
+            return true;
+        }
+    </script>
+</body>
+</html>
